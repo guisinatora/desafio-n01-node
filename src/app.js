@@ -21,6 +21,8 @@ const repositories = [];
 // }
 
 app.get("/repositories", (request, response) => {
+  return response.json(repositories);
+
 });
 
 app.post("/repositories", (request, response) => {
