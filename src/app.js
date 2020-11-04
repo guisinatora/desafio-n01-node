@@ -22,7 +22,6 @@ const repositories = [];
 
 app.get("/repositories", (request, response) => {
   return response.json(repositories);
-
 });
 
 app.post("/repositories", (request, response) => {
@@ -36,7 +35,25 @@ app.post("/repositories", (request, response) => {
 });
 
 app.put("/repositories/:id", (request, response) => {
-  // TODO
+  const { id } = request.params;
+  const { title, url, techs} = request.body;
+
+  const repositorieIndex = repositories.findIndex(repositorie => repositorie.id === id);
+
+  if (repositorieIndex < 0) {
+    return response.status(400).json({ error: 'Repositorie not found.'});
+  }
+
+  const repositorie = {
+    id,
+    title,
+    url,
+    techs
+  }
+
+  repositories[repositorieIndex] = repositorie;
+
+  return response.json(repositorie);
 });
 
 app.delete("/repositories/:id", (request, response) => {
